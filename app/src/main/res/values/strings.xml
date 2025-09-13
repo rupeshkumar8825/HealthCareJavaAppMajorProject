@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">HealthCareMajorProject</string>
+    <string name="app_name">HealthCareAppMajorProject</string>
+    <string name="passwordTextViewHint">Password</string>
+    <string name="loginButtonText">Login</string>
+    <string name="usernameEditTextHint">Username</string>
+    <string name="_24_7_medical_services">24*7 Medical Services</string>
+    <string name="register_if_new_user">Register if new user</string>
+
 </resources>
