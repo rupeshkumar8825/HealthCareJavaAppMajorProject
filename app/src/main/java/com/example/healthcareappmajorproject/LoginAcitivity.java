@@ -1,6 +1,8 @@
 package com.example.healthcareappmajorproject;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.healthcareappmajorproject.Database.Database;
 
 public class LoginAcitivity extends AppCompatActivity {
 
@@ -38,6 +42,8 @@ public class LoginAcitivity extends AppCompatActivity {
         editTextViewPassword = findViewById(R.id.passwordEditView);
         loginButton = findViewById(R.id.loginButton);
         textView = findViewById(R.id.registerNewUserTextView);
+        Database db = new Database(getApplicationContext(), "healthcare", null, 1);
+
 
         /**
          *
@@ -54,7 +60,31 @@ public class LoginAcitivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(getApplicationContext(), "Login Success", Toast.LENGTH_SHORT).show();
+                    int isLogin = db.login(enteredUserName, enteredPassword);
+                    if(isLogin == 0)
+                    {
+                        Toast.makeText(getApplicationContext(), "Login Failed", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(), "Login Success", Toast.LENGTH_SHORT).show();
+
+                        // now we will save the user information in the shared preference itself
+                        SharedPreferences sharedPreferences = getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("username", enteredUserName);
+                        editor.apply();
+
+                        // redirect the user to the home page for this purpose
+                        Intent redirectToHomeIntent = new Intent(LoginAcitivity.this, HomeActivity.class);
+                        startActivity(redirectToHomeIntent);
+
+                        // once the user has redirected to the home page we do not need
+                        // to come back again to the login activity we can simply
+                        // exit the application.
+                        finish();
+                    }
                 }
             }
         });

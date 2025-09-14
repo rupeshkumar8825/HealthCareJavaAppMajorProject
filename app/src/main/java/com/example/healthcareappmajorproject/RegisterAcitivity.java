@@ -15,6 +15,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.healthcareappmajorproject.Database.Database;
+
 public class RegisterAcitivity extends AppCompatActivity {
 
     EditText userNameEditText;
@@ -48,6 +50,8 @@ public class RegisterAcitivity extends AppCompatActivity {
                 String password = passwordEditText.getText().toString();
                 String confirmPassword = confirmPasswordEditText.getText().toString();
                 String email = emailEditText.getText().toString();
+                Database db = new Database(getApplicationContext(), "healthcare", null, 1);
+
                 Log.i("Register", String.format("The value of confirm password is %s, " +
                         "and the value of password is %s", confirmPassword, password));
 
@@ -66,6 +70,7 @@ public class RegisterAcitivity extends AppCompatActivity {
                     else
                     {
                         // we need to insert this data into the database
+                        db.register(username, email, password);
                         //otherwise this means that the user has entered the correct credentials
                         Toast.makeText(getApplicationContext(), "Registeration Successfully done", Toast.LENGTH_SHORT).show();
                         // now we will redirect to the login activity
