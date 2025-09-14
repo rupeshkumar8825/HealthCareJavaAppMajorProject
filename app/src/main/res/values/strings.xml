@@ -5,5 +5,7 @@
     <string name="usernameEditTextHint">Username</string>
     <string name="_24_7_medical_services">24*7 Medical Services</string>
     <string name="register_if_new_user">Register if new user</string>
+    <string name="registerText">Register</string>
+    <string name="register">Register</string>
 
 </resources>
